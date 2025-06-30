@@ -36,16 +36,31 @@ npm install
 - Cài đặt: `npm install nodemon --save-dev`
 - Chạy server: `npm start`
 
+### Morgan
+- Middleware ghi log các HTTP request
+- Cài đặt: `npm install morgan`
+- Sử dụng trong file `src/index.js`
+
+### Mongoose
+- ODM (Object Data Modeling) library cho MongoDB và Node.js
+- Cài đặt: `npm install mongoose`
+- Models được lưu trong `src/app/models`
+- Cấu hình kết nối DB trong `src/config/db`
+
 ## Cấu trúc thư mục
 
 ```
 src/
+├── app/
+│   └── models/           # Mongoose models
+├── config/
+│   └── db/               # Cấu hình kết nối database
 ├── index.js              # File chính của ứng dụng
-├── public/              # Thư mục chứa file tĩnh
-│   └── css/            # CSS đã được compile
+├── public/               # Thư mục chứa file tĩnh
+│   └── css/              # CSS đã được compile
 ├── resource/
-│   ├── scss/           # SCSS files
-│   └── views/          # Handlebars templates
+│   ├── scss/             # SCSS files
+│   └── views/            # Handlebars templates
 ```
 
 ## Scripts
