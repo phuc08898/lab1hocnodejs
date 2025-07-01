@@ -7,6 +7,21 @@
     <link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
-    <h1>Chào mừng đến với trang chủ</h1>
+    <div class="mt-4">
+        <div class="row">
+            <div class="col-sm-6">
+                {{#each courses}}
+                <div class="card" style="">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.name}}</h5>
+                    <p class="card-text">{{this.decription}}</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
 </body>
 </html> 

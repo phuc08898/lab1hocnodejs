@@ -1,36 +1,40 @@
+// 1. Import thư viện ngoài
 const path = require('path'); 
 const express = require('express');
-// này là đường dẫn thư viện express tự load lại 
-const morgran = require('morgan');
-//connect db
-const db = require('./config/db');
-db.connect();
-// app
-// templeat engine
+const morgan = require('morgan');
 const { engine } = require('express-handlebars');
+
+// 2. Import module nội bộ
+const route = require('./router');
+const db = require('./config/db');
+
+// 3. Khởi tạo app
 const app = express();
 const port = 3000;
+
+// 4. Middleware
 app.use(express.static(path.join(__dirname, 'public'))); 
-app.use(express.urlencoded({extended: true}));
-app.use(express.json({extended: true}));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(morgan('dev'));
+
+// 5. Cấu hình template engine
 app.engine('hbs', engine({
     layoutsDir: path.join(__dirname, 'resource/views/layouts'),
     defaultLayout: 'main',
-    // định nghĩa  đuôi file
     extname: '.hbs'
 }));
-
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'resource/views'));
-// console.log(path.join(__dirname,'resource/views'))
+app.set('views', path.join(__dirname, 'resource', 'views'));
 
+// 6. Kết nối database
+// (Nên kết nối DB trước khi nhận request)
+db.connect();
 
-app.get('/', (req, res) => {
-   res.render('home');
+// 7. Định nghĩa route
+route(app);
+
+// 8. Khởi động server
+app.listen(port, () => {
+    console.log(`app listening on http://localhost:${port}`);
 });
-app.get('/search', (req, res) => {
-    res.render('search');
- });
-app.listen(port,()=>{
-    return console.log(`Example app listening on port http://localhost:${port}`);
-})
